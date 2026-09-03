@@ -41,6 +41,7 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
 - **Get started (residents / contributors):** run `install/start-mac.command`
   (macOS) or `install/start-windows.bat` (Windows). The shared editing tool will be
   downloaded automatically and connect to this city — no city selection needed.
+  Step-by-step, from clone to your first proposal: [Getting started](docs/getting-started.md).
 - **Data source & license:** see `4dcitygml.json` (`attribution` / `license`).
 - **Building history (optional):** enable GitHub Pages (Source: GitHub Actions)
   and run the workflow "Building history index (Pages)"; it publishes the
