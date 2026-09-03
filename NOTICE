@@ -1,0 +1,16 @@
+4dcitygml city-template
+Copyright (c) 2026 4dcitygml
+
+This template contains code, configuration, CI workflows, documentation, and
+example settings for setting up a city CityGML repository. All template
+content is licensed under the Apache License 2.0 (see LICENSE).
+
+City repositories generated from this template MUST, before adding data:
+1. Replace this NOTICE with the city dataset's own provenance record:
+   source URL, acquisition date, original license, required attribution, and
+   the list of modifications made to the original data.
+2. Extend LICENSE with the licensing terms of the city data (keep the
+   Apache-2.0 section for code; add a dataset section). The
+   sample-*-station repositories are worked examples of both files.
+3. Record how contributed data and images are licensed in
+   docs/data-contribution-policy.md.
