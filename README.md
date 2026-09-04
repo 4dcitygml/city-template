@@ -38,10 +38,13 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
     code-owner review, conversation resolution, no force-push or deletion)
     and set Actions to require approval for first-time contributors.
 
-- **Get started (residents / contributors):** run `install/start-mac.command`
-  (macOS) or `install/start-windows.bat` (Windows). The shared editing tool will be
-  downloaded automatically and connect to this city — no city selection needed.
-  Step-by-step, from clone to your first proposal: [Getting started](docs/getting-started.md).
+- **Get started (residents / contributors):** download the starter kit from this
+  repository's release `starter-kit` (`<city-id>-starter.zip`, built automatically by
+  `.github/workflows/starter-kit.yml` once `install/tools-release.json` is filled in),
+  unzip it, and double-click `start-mac.command` (macOS) or `start-windows.bat`
+  (Windows). The shared editing tool is downloaded automatically and connects to this
+  city; contributors do not need to clone the repository (the tool creates their copy).
+  Step by step, including working with Git directly: [Getting started](docs/getting-started.md).
 - **Data source & license:** see `4dcitygml.json` (`attribution` / `license`).
 - **Building history (optional):** enable GitHub Pages (Source: GitHub Actions)
   and run the workflow "Building history index (Pages)"; it publishes the
