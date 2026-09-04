@@ -26,9 +26,11 @@ Stadtdaten. Was fehlt, erklären die Werkzeuge Schritt für Schritt.
    Konfiguration dieser Stadt.
 2. Entpacken Sie es. Sie erhalten einen Ordner wie `<stadt>-starter/`.
 3. Starten:
-   - macOS: `start-mac.command` doppelklicken. Meldet macOS einen nicht verifizierten
-     Entwickler, Rechtsklick → *Öffnen*. Fragt das Terminal nach Zugriff auf den Ordner
-     „Dokumente“, erlauben Sie ihn.
+   - macOS: `start-mac.command` doppelklicken. Beim ersten Mal blockiert macOS die Datei:
+     Ab macOS 15 *Systemeinstellungen → Datenschutz & Sicherheit* öffnen, neben dem Hinweis
+     zur Datei *Dennoch öffnen* wählen und erneut doppelklicken; bei älteren Versionen
+     Rechtsklick → *Öffnen*. Fragt das Terminal nach Zugriff auf den Ordner „Dokumente“,
+     erlauben Sie ihn.
    - Windows: `start-windows.bat` doppelklicken. Erscheint SmartScreen, *Weitere
      Informationen* und dann *Trotzdem ausführen* wählen.
 
@@ -43,7 +45,9 @@ Was der Reihe nach passiert:
    Stadt verbunden. Lassen Sie das Terminalfenster während der Arbeit offen; schließen
    beendet die Werkzeuge.
 
-Heruntergeladen wird nur beim ersten Mal. Spätere Starts beginnen direkt bei Schritt 4.
+Heruntergeladen wird beim ersten Mal und immer dann, wenn die Stadt eine neuere
+Werkzeug-Version festlegt; der Starter ersetzt die alte Kopie erst nach der Prüfung.
+Sonst beginnen spätere Starts direkt bei Schritt 4.
 Ihre eigene Kopie der Stadtdaten legt der Hub im nächsten Abschnitt an; das Repository
 selbst müssen Sie nie herunterladen.
 
@@ -138,7 +142,7 @@ Regeln folgen. Nutzen Sie sie frei, bevor Sie an einer echten Stadt arbeiten.
 ## 9. Fehlerbehebung
 
 - *Port 8760 ist belegt*: Ein anderer Hub läuft. Schließen Sie ihn oder geben Sie einen
-  anderen Port an: `python3 ~/Documents/citygml-tools/citygml-hub/program/hub.py --port 8761`.
+  anderen Port an (Beispiel für macOS): `python3 ~/Documents/citygml-tools/citygml-hub/program/hub.py --port 8761`.
 - *SHA-256 stimmt nicht*: Der Download war beschädigt oder verändert. Starter erneut
   ausführen; bleibt es dabei, melden Sie es über die Wege in der
   [SUPPORT.md](https://github.com/4dcitygml/.github/blob/main/SUPPORT.md) der Organisation.
