@@ -240,17 +240,20 @@ skipped. Respond by narrowing the scope and raising the priority.
 
 ### 6.6 `tooling` (updating the shared tools)
 
-For a `hub-v` client update, a PR changes `install/tools-release.json`
-(tag, asset and sha256). For a `tools-v` city-processing update, it changes
-`CITYGML_TOOLS_REF` to the immutable release commit. These are independent
-updates; verify the combination before adoption. Nothing changes until the
+A `tooling` PR changes `CITYGML_TOOLS_REF` in `.github/workflows/` to the
+immutable commit of a published `tools-v` release. That is the only tools
+version a city pins: the editing tools on residents' computers (the `hub-v`
+client) are not pinned by the city — their version comes from `4dcitygml/tools`
+releases, and the hub offers each newer version to its user. CI verifies the
+pin against the `tools-v` tags (Exchange Contract A11); any other change under
+`.github/` needs the maintainer label `tooling`. Nothing changes until the
 city merges the PR.
 
 ```text
-[ ] The change touches only install/tools-release.json and the pins in .github/workflows/ — no data, no documentation
-[ ] The new tag, asset names, and sha256 match the release notes of 4dcitygml/tools
+[ ] The change touches only the CITYGML_TOOLS_REF lines in .github/workflows/ — no data, no documentation
+[ ] CI's file-scope row passed (the new commit is a tools-v release; the tags API confirmed it)
 [ ] The explanation summarizes the release notes and starts with "no data change"
-[ ] You confirmed on one machine that the starter's update mechanism (.release-tag) delivers the new release
+[ ] If the release changes what CI expects from clients, min_hub in 4dcitygml.json was raised in the same PR
 [ ] Squash-merged after the city's approval
 ```
 
@@ -321,7 +324,8 @@ new-year edition".
 ```text
 [ ] Candidates for unreferenced textures checked
 [ ] New official sources / annual editions and the check date recorded
-[ ] Pins of required workflows and shared tools inspected (CITYGML_TOOLS_REF, tools-release.json); tooling PR decided
+[ ] Pin of the shared CI tools inspected (CITYGML_TOOLS_REF) and min_hub reviewed; tooling PR decided
+[ ] Organization settings reviewed: 2FA required, at least two maintainers, bypass list owners only, audit log read
 [ ] Sources, rights, and open questions for the release-target commit confirmed
 ```
 

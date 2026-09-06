@@ -79,6 +79,10 @@ jobs:
         id: main
         env:
           PREVIEW_BASE_URL: ${{ vars.PREVIEW_BASE_URL }}
+          # Exchange Contract v3.0.0 A5: a data PR must be classified. Set this repository
+          # variable to "true" only for the city's first release under v3.0.0 (guidance is
+          # posted as a warning instead of blocking); remove it afterwards.
+          CITYGML_CLASSIFICATION_WARN_ONLY: ${{ vars.CITYGML_CLASSIFICATION_WARN_ONLY }}
         run: bash "$TOOLS_DIR/ci/pr_analysis_main.sh"
 
       # --- Topological consistency gate (official engine val3dity, differential, advisory) ---

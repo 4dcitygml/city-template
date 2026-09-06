@@ -47,7 +47,7 @@ def build_report(repo, pr, run, inspection, artifacts, files):
     if inspection.get('context') != context(pr) or inspection.get('pr') != pr['number']:
         raise ValueError('Inspection context is stale')
     rows = inspection.get('checks')
-    expected = {'reason','commit-scope','scope-reproducibility','reproduction','freshness','file-scope','schema','minimal-diff','texture','structure','plausibility','topology','model'}
+    expected = {'reason','classification','commit-scope','scope-reproducibility','reproduction','freshness','file-scope','schema','minimal-diff','texture','structure','plausibility','topology','model'}
     if not isinstance(rows, list) or len(rows) != len(expected) or {r['key'] for r in rows} != expected:
         raise ValueError('Incomplete inspection result')
     if any(r.get('status') not in ('pass','fail','na','pending') for r in rows):
@@ -56,7 +56,7 @@ def build_report(repo, pr, run, inspection, artifacts, files):
     state = 'fix' if any(r['status'] == 'fail' for r in rows) else 'pass'
     if any(r['status'] == 'pending' for r in rows) or (run['conclusion'] != 'success' and state == 'pass'):
         state = 'system'
-    outcome_keys = {'reason':'REASON_OUTCOME','commit-scope':'COMMIT_SCOPE_OUTCOME','freshness':'FRESHNESS_OUTCOME',
+    outcome_keys = {'reason':'REASON_OUTCOME','classification':'CLASSIFICATION_OUTCOME','commit-scope':'COMMIT_SCOPE_OUTCOME','freshness':'FRESHNESS_OUTCOME',
                     'schema':'FORMAT_OUTCOME','minimal-diff':'REVIEWABILITY_OUTCOME','file-scope':'QUALITY_OUTCOME',
                     'texture':'TEXTURE_OUTCOME','structure':'STRUCTURE_OUTCOME','plausibility':'PLATEAU_OUTCOME',
                     'topology':'TOPOLOGY_OUTCOME','model':'PREVIEW_OUTCOME','reproduction':'REPRODUCTION_OUTCOME',

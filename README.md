@@ -17,12 +17,15 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
    acquisition date, original license, required attribution, list of
    modifications) and extend `LICENSE` with the dataset's terms. The
    `sample-*-station` repositories are worked examples of both files.
-6. Check `install/tools-release.json`: `tag` / `asset` / `sha256` must point
-   to a published `hub-v` client release of `4dcitygml/tools` (the start scripts refuse to
-   download while these are empty, and stop on a checksum mismatch).
+6. Do not add tools, scripts or a starter kit to this repository: a city
+   repository holds data, documents and settings only, and CI rejects code
+   (Exchange Contract A11). Residents install the editing tools with the one-line
+   command in the *Get started* bullet below; the tools' version comes from
+   `4dcitygml/tools` releases. Optionally state the oldest client you accept
+   with `min_hub` in `4dcitygml.json` (advisory; the hub shows it as the reason
+   for an update).
 7. In `.github/workflows/`, keep `CITYGML_TOOLS_REF` pinned to an immutable
    commit SHA from a published `tools-v` release of `4dcitygml/tools`.
-   This is separate from the Hub client version in step 6.
    Update it deliberately per release —
    never point it at a branch. The workflows fetch the shared CI logic from
    `4dcitygml/tools` regardless of which account or organization hosts your
@@ -62,16 +65,22 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
     current arrangement; it may change over time. See [review settings](docs/review-settings.md).
     Remove the unpublished prototype's `operator-explanation` required check and
     workflows when migrating; there is no separate operator confirmation stage.
-    This template pins tools-v1.1.0 for CI and hub-v1.1.0 for clients.
+    This template pins tools-v1.1.0 for CI; clients are not pinned by cities.
     City settings and GitHub acceptance tests are still required before rollout. Test report failure/staleness, approval counts and personal filters.
 
 
-- **Get started (residents / contributors):** download the starter kit from this
-  repository's release `starter-kit` (`<city-id>-starter.zip`, built automatically by
-  `.github/workflows/starter-kit.yml` once `install/tools-release.json` is filled in),
-  unzip it, and double-click `start-mac.command` (macOS) or `start-windows.bat`
-  (Windows). The shared editing tool is downloaded automatically and connects to this
-  city; contributors do not need to clone the repository (the tool creates their copy).
+- **Get started (residents / contributors):** open a terminal and paste one line.
+  macOS (Terminal):
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/4dcitygml/tools/install-v1/install/citygml.sh)" -- <owner>/<code>-<cityname>
+  ```
+  Windows (PowerShell):
+  ```
+  & ([scriptblock]::Create((irm https://raw.githubusercontent.com/4dcitygml/tools/install-v1/install/citygml.ps1))) <owner>/<code>-<cityname>
+  ```
+  The shared editing tools are downloaded from `4dcitygml/tools`, verified, and
+  connect to this city; you do not need to clone the repository (the tools create
+  your own copy) and after the first time a desktop icon opens them.
   Step by step, including working with Git directly: [Getting started](docs/getting-started.md).
 - **Data source & license:** see `4dcitygml.json` (`attribution` / `license`).
 - **Building history (optional):** enable GitHub Pages (Source: GitHub Actions)
