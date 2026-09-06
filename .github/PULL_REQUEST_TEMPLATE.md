@@ -16,6 +16,7 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 - [ ] `lifecycle` (rebuild, split, merge)
 - [ ] `identity-correction` (fixing a mis-linked ID in published history)
 - [ ] `source-update` (applying an official source / annual edition)
+- [ ] `semantic-correction` (supported pilot recipe only; requires its released tools version and evidence)
 - [ ] `schema-update` (adding edition-specific artifacts and validation profiles)
 - [ ] `carry-forward` (re-basing the repository's changes onto a new official edition)
 - [ ] `schema-migration` (registry-driven re-serialization into a new edition when the repository is the master copy)
@@ -25,7 +26,7 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 - [ ] code / documentation only
 
 ## Target buildings / scope
-<!-- The stable uro:buildingID of each affected building. Multi-building PRs: one ID per commit. Administrative PRs: specify the mesh or manifest. -->
+<!-- The stable uro:buildingID of each affected building. Bulk submissions (with a provenance manifest): one ID per commit. Administrative PRs: specify the mesh or manifest. -->
 -
 
 ## Summary of changes <!--sec:reason-->
@@ -69,12 +70,12 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 - [ ] For normal updates, each commit is **1 commit = 1 `uro:buildingID`**
 - [ ] For normal updates, fixes to the same buildingID are not split across multiple commits in the PR
 - [ ] The `Building:` (etc.) trailer of each building commit matches the actually changed buildingID
-- [ ] For multi-building PRs, if any single building fails a blocking CI check, the whole PR is fixed
+- [ ] For bulk submissions (several building commits with a provenance manifest), if any single building fails a blocking CI check, the whole PR is fixed
 - [ ] If a geometry preview was shown, the appearance was checked with 🔴 before / 🔵 after
 - [ ] For lifecycle changes, the **reason for the merge / split / rebuild** is written under "Summary of changes"
 - [ ] For texture changes, no existing image is **overwritten under the same name** (exception: `texture-override`)
 - [ ] If there is a related issue, it is linked with `Fixes #<number>` or `Refs #<number>`
-- [ ] The applicable checklist in the [PR operations guide](../docs/pr-operations.md) was reviewed
+- [ ] For a PR made without the editing tools: the applicable checklist in the [operator handbook](../docs/operator-handbook.md) was reviewed (the contract itself is [PR operations](../docs/pr-operations.md))
 
 ## Related issues
 <!-- Fixes if the change closes it, Refs if merely related. "None" if none. -->

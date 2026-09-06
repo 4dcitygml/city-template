@@ -18,25 +18,53 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
    modifications) and extend `LICENSE` with the dataset's terms. The
    `sample-*-station` repositories are worked examples of both files.
 6. Check `install/tools-release.json`: `tag` / `asset` / `sha256` must point
-   to a current `4dcitygml/tools` release (the start scripts refuse to
+   to a published `hub-v` client release of `4dcitygml/tools` (the start scripts refuse to
    download while these are empty, and stop on a checksum mismatch).
 7. In `.github/workflows/`, keep `CITYGML_TOOLS_REF` pinned to an immutable
-   commit SHA of `4dcitygml/tools`. Update it deliberately per release —
+   commit SHA from a published `tools-v` release of `4dcitygml/tools`.
+   This is separate from the Hub client version in step 6.
+   Update it deliberately per release —
    never point it at a branch. The workflows fetch the shared CI logic from
    `4dcitygml/tools` regardless of which account or organization hosts your
    repository; only if you maintain your own audited mirror of `tools`, set
    the repository variable `CITYGML_TOOLS_REPO` (Settings → Secrets and
    variables → Actions → Variables) to `owner/name`.
 8. Update `.github/CODEOWNERS`: replace the owner handle with your
-   maintainer account (an organization cannot be a code owner). The
-   `sample-*-station` repositories additionally exempt their enumerated
+   maintainers team, e.g. `* @<org>/maintainers` (an organization cannot be
+   a code owner, but a team can; the team must be visible and have write
+   access). Keeping the file team-based means people join and leave the
+   review role by changing team membership — the file itself never changes.
+   The `sample-*-station` repositories additionally exempt their enumerated
    practice data files from code-owner review — do not copy that pattern
    into a production city repository.
 9. Replace `<City Name>` in this README, delete the template comment at the
    top of it, and add `logo.png` (optional).
-10. On GitHub, enable branch protection / rulesets (required checks,
-    code-owner review, conversation resolution, no force-push or deletion)
-    and set Actions to require approval for first-time contributors.
+10. On GitHub, enable branch protection / rulesets: required checks
+    `analyze` and `ci-report`, the city's required approval count with review
+    from Code Owners, dismiss stale
+    approvals on push, approval of the most recent reviewable push,
+    conversation resolution, no force-push or deletion. Allow the merge
+    method `merge` (city-data PRs keep one commit per building; do not
+    restrict merging to squash). Set Actions to require approval for
+    first-time contributors. See `docs/pr-operations.md` §2–§3 for the
+    seats (owner, maintainers, operators) these settings assume.
+11. For every production city repository, set the Actions repository variable
+    `CITYGML_STRICT_GATE` to `1` (Settings → Secrets and variables → Actions →
+    Variables). Requiring `analyze` alone does not make individual inspection
+    failures block merging. Before opening contributions, use a test PR with
+    a deliberately invalid building attribute to verify that `analyze` fails
+    and the required check blocks merging without admin bypass. Record the PR
+    and workflow run URLs, then close the test PR without merging it. If the
+    job succeeds despite an inspection failure, do not start operation.
+12. Require `ci-report` alongside `analyze`, with **GitHub Actions** as the expected
+    source, and set `CITYGML_STRICT_GATE=1`. Reviewers use the same CI report and
+    standard GitHub Approve. Configure the required approval count for the city's
+    current arrangement; it may change over time. See [review settings](docs/review-settings.md).
+    Remove the unpublished prototype's `operator-explanation` required check and
+    workflows when migrating; there is no separate operator confirmation stage.
+    This template pins tools-v1.1.0 for CI and hub-v1.1.0 for clients.
+    City settings and GitHub acceptance tests are still required before rollout. Test report failure/staleness, approval counts and personal filters.
+
 
 - **Get started (residents / contributors):** download the starter kit from this
   repository's release `starter-kit` (`<city-id>-starter.zip`, built automatically by
@@ -62,6 +90,9 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
   (png / jpg / jpeg / webp, ≤ 1 MiB) inside this repository; it is shown top-left in
   every tool. SVG is not accepted — an SVG opened directly can execute scripts, which
   would break the "no XSS by construction" design shared with themes.
+
+For city staff: [処理フローの解説（日本語）](docs/ja/processing-flow.md)
+covers setup, proposals, automated checks, approval, corrections, and releases.
 
 ## Viewing the data in a standalone viewer
 

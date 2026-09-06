@@ -9,8 +9,8 @@ Diese Anleitung führt einmal komplett durch den Übungsablauf: dieses Repositor
 den eigenen Rechner holen, die gemeinsamen Bearbeitungswerkzeuge starten, sie mit dem
 eigenen GitHub-Konto verbinden und den ersten Änderungsvorschlag (Pull Request)
 senden. Beim ersten Mal dauert das etwa 15 Minuten. Nichts davon ändert die
-Stadtdaten direkt: Jede Bearbeitung wird ein Vorschlag, den eine Betreuerin oder ein
-Betreuer prüft.
+Stadtdaten direkt: Jede Bearbeitung wird ein Vorschlag, der automatisch geprüft, von einem
+Betreiber erläutert und von den Endfreigebenden der Stadt freigegeben wird.
 
 Die Regeln für Vorschläge stehen in der [PR-Anleitung](pr-operations.md) und in den
 [Regeln zur Quellenerfassung](provenance-rules.md); was beigetragen werden darf, in der
@@ -123,7 +123,7 @@ Innerhalb weniger Minuten kommentieren die automatischen Prüfungen den Vorschla
 Zusammenfassung der Änderung, eine Prüfung der Nachvollziehbarkeit und eine Tabelle mit
 dreizehn Prüfpunkten. Punkte, die Aufmerksamkeit brauchen, kommen mit Hinweisen; im Editor
 korrigieren und vom selben Gebäude erneut senden, dann laufen die Prüfungen wieder. Sind
-alle bestanden, prüft und übernimmt die Betreuung den Vorschlag. Ihr Name in der Historie
+alle bestanden, erläutert ein Betreiber den Vorschlag, die Endfreigebenden der Stadt geben ihn frei, und er wird übernommen. Ihr Name in der Historie
 ist Ihr GitHub-Konto, wie bei jedem Pull Request.
 
 ## 7. Beim nächsten Mal

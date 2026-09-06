@@ -7,9 +7,12 @@ This guide walks through the practice flow end to end: getting this repository o
 your computer, starting the shared editing tools, connecting them to your GitHub
 account, and sending your first change proposal (a pull request). It takes about
 15 minutes the first time. Nothing here changes the city data directly: every edit
-becomes a proposal that a maintainer reviews.
+becomes a proposal that is checked automatically, explained by an operator, and
+approved by the city's maintainers.
 
-For the rules that proposals must follow, see the [PR operations guide](pr-operations.md)
+After you send: the automated checks run within minutes, an operator posts a short
+explanation, and the city's maintainers approve — you only need to act if someone asks
+you to change something. For the rules that proposals must follow, see the [PR operations guide](pr-operations.md)
 and the [source recording rules](provenance-rules.md). For what may be contributed,
 see the [data contribution policy](data-contribution-policy.md).
 
@@ -117,7 +120,8 @@ In the Attribute Editor:
 Within a few minutes the automated checks comment on the proposal: a change summary, a
 reviewability check, and a table of thirteen gates. Items marked as needing attention
 come with instructions; fix them in the editor and send again from the same building,
-and the checks rerun. When everything passes, the maintainer reviews and merges. Your
+and the checks rerun. When everything passes, an operator posts an explanation, the
+city's maintainers approve, and the change is merged. Your
 name in the history is your GitHub account, the same as in any pull request.
 
 ## 7. Next time
