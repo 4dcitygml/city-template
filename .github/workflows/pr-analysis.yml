@@ -34,7 +34,7 @@ env:
   # unchanged; set the repository variable CITYGML_TOOLS_REPO only to point at your own
   # audited mirror of tools (owner/name).
   CITYGML_TOOLS_REPO: ${{ vars.CITYGML_TOOLS_REPO || '4dcitygml/tools' }}
-  CITYGML_TOOLS_REF: 7aec6cc750e67d9c64913154d87f33cad942763f   # tools-v1.2.0
+  CITYGML_TOOLS_REF: 797b0fc9943bec395b3934c1659657fb2281d407   # tools-v1.2.1
 
 jobs:
   analyze:
