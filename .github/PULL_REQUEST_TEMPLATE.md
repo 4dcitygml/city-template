@@ -23,7 +23,7 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 - [ ] `layout` (semantics-preserving mesh subdivision)
 - [ ] `texture-gc`
 - [ ] `revert`
-- [ ] code / documentation only
+- [ ] documentation / configuration only (code is not accepted here — propose tools in `4dcitygml/tools`)
 
 ## Target buildings / scope
 <!-- The stable uro:buildingID of each affected building. Bulk submissions (with a provenance manifest): one ID per commit. Administrative PRs: specify the mesh or manifest. -->

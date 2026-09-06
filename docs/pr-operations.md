@@ -65,7 +65,7 @@ title does appear in the practice history, which is periodically reset.)
 ```text
 Issue / official source / resident's proposal
   → PR with changes and evidence (Draft is optional while work is in progress)
-  → automated checks (13 gates)
+  → automated checks (14 gates)
   → CI generates the shared report and any correction request
   → reviewers use GitHub Approve; current required approval count is configurable
   → operator merges with a merge commit
@@ -108,8 +108,8 @@ repository in the browser; they do not enforce a job title or a review order.
 | `layout` | One one-step subdivision of one parent mesh | One semantics-preserving commit | Re-aggregation check, ID / reference / size checks | Operator · handbook §6.3 |
 | `texture-gc` | One collection of unreferenced images | No building change | Proof of non-reference for all imageURIs, deletion list | Operator · handbook §6.4 |
 | `revert` | Undo of one building commit or one PR | Keeps the original unit | Target, reason, affected releases | Operator · handbook §6.5 |
-| `tooling` | One update to a new `tools` release | No building change | Old/new tag · asset · sha256, release notes, "no data change" | 4dcitygml proposes, operator verifies · handbook §6.6 |
-| Code / docs | One tool or documentation change | No building change | Tests, doc links, impact | Operator |
+| `tooling` | One update of `CITYGML_TOOLS_REF` to a new `tools-v` release (CI verifies it against the tools tags) | No building change | Release notes, "no data change", `min_hub` if clients are affected | 4dcitygml proposes, operator verifies · handbook §6.6 |
+| Docs / configuration | One documentation or configuration change (`docs/`, README, `4dcitygml.json`, theme, logo). Code is not accepted in a city repository (Exchange Contract A11) | No building change | Doc links, impact | Operator |
 | `identity-correction` | One mis-connection / ID fix event | Per the dedicated gate | Before/after IDs, evidence, extra approval | Bulk submitter · bulk-submission document |
 | `source-update` | 1 source transition × 1 mesh × 1 attribute family | One buildingID each | Provenance manifest, allowed paths, counts, sample | Bulk submitter · bulk-submission document |
 | `carry-forward` | 1 edition change × 1 mesh | One `Building:` commit per re-applied building after the new edition's `source-baseline` | Provenance manifest (reapplied / absorbed / conflicts / unmappable / carried) | Bulk submitter · bulk-submission document |

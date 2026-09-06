@@ -3,81 +3,78 @@
 
 # Erste Schritte: vom Klonen bis zum ersten Änderungsvorschlag
 
-<!-- Übersetzung. Bei Abweichungen gilt die englische Fassung (../getting-started.md). -->
-
 Diese Anleitung führt einmal komplett durch den Übungsablauf: dieses Repository auf
 den eigenen Rechner holen, die gemeinsamen Bearbeitungswerkzeuge starten, sie mit dem
 eigenen GitHub-Konto verbinden und den ersten Änderungsvorschlag (Pull Request)
 senden. Beim ersten Mal dauert das etwa 15 Minuten. Nichts davon ändert die
-Stadtdaten direkt: Jede Bearbeitung wird ein Vorschlag, der automatisch geprüft, von einem
-Betreiber erläutert und von den Endfreigebenden der Stadt freigegeben wird.
+Stadtdaten direkt: Jede Bearbeitung wird ein Vorschlag, der automatisch geprüft und von den
+Genehmigenden der Stadt freigegeben wird.
 
-Die Regeln für Vorschläge stehen in der [PR-Anleitung](pr-operations.md) und in den
-[Regeln zur Quellenerfassung](provenance-rules.md); was beigetragen werden darf, in der
+Danach: die automatischen Prüfungen laufen in wenigen Minuten ab und veröffentlichen
+ihren Bericht, und die Genehmigenden der Stadt geben den Vorschlag frei — Sie
+müssen nur handeln, wenn jemand bittet, etwas zu ändern. Für die Regeln, denen Vorschläge
+folgen müssen, siehe die [PR-Anleitung](pr-operations.md)
+und die [Regeln zur Quellenerfassung](provenance-rules.md). Was beigetragen werden darf, siehe die
 [Richtlinie für Datenbeiträge](data-contribution-policy.md).
 
-## 1. Schnellstart: Starter-Kit herunterladen
+## 1. Schnellstart: ein Befehl
 
-Zum Anfangen brauchen Sie weder Git noch ein GitHub-Konto noch eine Kopie der
-Stadtdaten. Was fehlt, erklären die Werkzeuge Schritt für Schritt.
+Sie brauchen weder Git noch ein GitHub-Konto noch eine Kopie der
+Stadtdaten zum Anfangen. Was fehlt, erklären die Werkzeuge Schritt für Schritt. Die folgende Zeile ist
+die gesamte Installation; Sie ist auf jedem Rechner gleich und wird nie veraltet.
 
-1. Laden Sie das **Starter-Kit** herunter, das in der README dieses Repositorys
-   (Punkt *Loslegen*) verlinkt ist. Es ist ein kleines Zip mit den Startskripten und der
-   Konfiguration dieser Stadt.
-2. Entpacken Sie es. Sie erhalten einen Ordner wie `<stadt>-starter/`.
-3. Starten:
-   - macOS: `start-mac.command` doppelklicken. Beim ersten Mal blockiert macOS die Datei:
-     Ab macOS 15 *Systemeinstellungen → Datenschutz & Sicherheit* öffnen, neben dem Hinweis
-     zur Datei *Dennoch öffnen* wählen und erneut doppelklicken; bei älteren Versionen
-     Rechtsklick → *Öffnen*. Fragt das Terminal nach Zugriff auf den Ordner „Dokumente“,
-     erlauben Sie ihn.
-   - Windows: `start-windows.bat` doppelklicken. Erscheint SmartScreen, *Weitere
-     Informationen* und dann *Trotzdem ausführen* wählen.
+- **macOS**: öffnen Sie *Terminal* (Spotlight → „Terminal"), fügen Sie die Zeile aus der README dieses
+  Repositorys (*Loslegen*) ein, drücken Sie Return:
+
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/4dcitygml/tools/install-v1/install/citygml.sh)" -- <owner>/<repo>
+  ```
+  Bietet macOS an, die *Kommandozeilenwerkzeuge* zu installieren, nehmen Sie das an und führen Sie
+  die Zeile danach erneut aus. Fragt es, ob das Terminal auf Ihren Ordner „Dokumente"
+  zugreifen darf, erlauben Sie es.
+- **Windows**: öffnen Sie *PowerShell* (Start → „PowerShell"), fügen Sie die Zeile aus der README
+  ein, drücken Sie Enter. Git und Python reisen im Download mit; nichts anderes wird installiert.
 
 Was der Reihe nach passiert:
 
-1. Der Starter liest `tools-release.json`; dort ist die genaue Werkzeug-Version festgelegt
-   (Tag, Dateiname, SHA-256).
-2. Er lädt diese Version von den Releases von `4dcitygml/tools` und prüft die Prüfsumme.
-   Stimmt sie nicht, wird nichts entpackt und der Starter bricht ab.
-3. Die Werkzeuge werden nach `~/Documents/citygml-tools/citygml-hub/` entpackt.
-4. Der Hub öffnet sich im Browser unter `http://localhost:8760/`, bereits mit dieser
-   Stadt verbunden. Lassen Sie das Terminalfenster während der Arbeit offen; schließen
-   beendet die Werkzeuge.
+1. Der Befehl holt die neueste Veröffentlichung der Bearbeitungswerkzeuge von
+   `4dcitygml/tools` und prüft sie gegen die SHA-256-Prüfsumme, die GitHub
+   für diese Datei veröffentlicht. Stimmt die Prüfsumme nicht, wird nichts installiert und der Befehl bricht ab.
+2. Die Werkzeuge werden nach `~/Documents/citygml-tools/citygml-hub/<version>/` gelegt, und eine
+   Kopie des Launcher-Skripts bleibt in `~/Documents/citygml-tools/`.
+3. Der Hub öffnet sich im Browser, bereits mit dieser Stadt verbunden. Lassen Sie das Terminalfenster
+   während der Arbeit offen; schließen beendet die Werkzeuge.
+4. Nach der Einrichtung unten bietet der Hub an, ein **Desktop-Symbol** für diese Stadt zu erstellen.
+   Von dann an öffnen Sie die Werkzeuge mit diesem Symbol; die Terminal-Zeile ist nur für das
+   erste Mal (oder einen anderen Rechner).
 
-Heruntergeladen wird beim ersten Mal und immer dann, wenn die Stadt eine neuere
-Werkzeug-Version festlegt; der Starter ersetzt die alte Kopie erst nach der Prüfung.
-Sonst beginnen spätere Starts direkt bei Schritt 4.
-Ihre eigene Kopie der Stadtdaten legt der Hub im nächsten Abschnitt an; das Repository
-selbst müssen Sie nie herunterladen.
+Dieses Repository enthält nur Daten, Dokumente und Einstellungen. Jedes Programm, das auf
+Ihrem Rechner läuft, kommt aus `4dcitygml/tools`-Veröffentlichungen — dasselbe für jede Stadt.
 
 ## 2. Voraussetzungen
 
 - macOS 12 oder neuer, oder Windows 10 oder neuer.
 - Nur macOS: Apples Kommandozeilenwerkzeuge (`git` und `python3`). Bietet macOS beim
-  ersten Start des Starters die Installation an, nehmen Sie sie an. Meldet der Hub später,
-  dass eine Komponente für den Import fehlt, folgen Sie der `READ-ME-FIRST.html` im
-  entpackten Werkzeugordner und starten erneut; die Einrichtung setzt dort fort, wo sie
-  stehen blieb. Windows braucht nichts: Git und Python sind im Download enthalten.
-- Etwa 400 MB freier Speicher (Werkzeuge plus Ihre Kopie der Stadtdaten).
-- Ein GitHub-Konto wird, falls Sie keines haben, im Schritt *Verbinden* angelegt
-  (kostenlos; E-Mail-Adresse und Passwort).
+  ersten Ausführen des Befehls die Installation an, nehmen Sie sie an. Windows braucht nichts:
+  Git und Python reisen im Download mit.
+- Ungefähr 400 MB freier Speicherplatz (Werkzeuge plus Ihre Kopie der Stadtdaten).
+- Ein GitHub-Konto wird, falls Sie keines haben, im Schritt *Verbinden*
+  unten angelegt (kostenlos; eine E-Mail-Adresse und ein Passwort).
 
-## 3. Sie arbeiten schon mit Git oder GitHub? Siehe Ende der Anleitung
+## 3. Arbeiten Sie bereits mit Git oder GitHub? Siehe Ende dieser Anleitung
 
-Das Starter-Kit ist für alle der einfachste Einstieg, auch für Entwicklerinnen und
-Entwickler. Wer lieber direkt mit Git und GitHub arbeitet oder ein eigenes Werkzeug bauen
-möchte, liest nach dem Durchgang
+Der Befehl ist der einfachste Weg für alle, auch für Entwicklerinnen und Entwickler. Wer lieber
+direkt mit Git und GitHub arbeitet, oder ein eigenes Werkzeug bauen möchte, liest nach dem Durchgang
 [Fortgeschritten: Git, GitHub und eigene Werkzeuge](#fortgeschritten-git-github-und-eigene-werkzeuge).
-Die Regeln für Vorschläge sind auf jedem Weg dieselben.
+Die Regeln, denen Vorschläge entsprechen müssen, sind in jedem Fall gleich.
 
 ## 4. Ersteinrichtung im Hub (drei Schritte)
 
-Bis Ihre Arbeitskopie existiert, zeigt der Hub eine Einrichtung in drei Schritten.
+Bis Ihre Arbeitskopie existiert, zeigt der Hub einen Einrichtungsbildschirm in drei Schritten.
 
 1. **Verbinden.** Der Bildschirm nennt genau, was Sie erlauben: die Berechtigung
    `public_repo`, mit der die Werkzeuge in Ihrem Namen Kopien öffentlicher Repositorys
-   anlegen und Pull Requests eröffnen dürfen. Klicken Sie *Nummer kopieren und GitHub
+   erstellen und Pull Requests öffnen dürfen. Klicken Sie *Nummer kopieren und GitHub
    öffnen*, fügen Sie die Nummer auf der GitHub-Seite ein und bestätigen Sie. Die
    Anmeldung allein hinterlässt keine öffentliche Spur; die Erlaubnis steht nur in Ihren
    eigenen GitHub-Einstellungen und lässt sich dort jederzeit widerrufen.
@@ -121,42 +118,52 @@ Im Attribut-Editor:
 
 Innerhalb weniger Minuten kommentieren die automatischen Prüfungen den Vorschlag: eine
 Zusammenfassung der Änderung, eine Prüfung der Nachvollziehbarkeit und eine Tabelle mit
-dreizehn Prüfpunkten. Punkte, die Aufmerksamkeit brauchen, kommen mit Hinweisen; im Editor
+vierzehn Prüfpunkten. Punkte, die Aufmerksamkeit brauchen, kommen mit Hinweisen; im Editor
 korrigieren und vom selben Gebäude erneut senden, dann laufen die Prüfungen wieder. Sind
-alle bestanden, erläutert ein Betreiber den Vorschlag, die Endfreigebenden der Stadt geben ihn frei, und er wird übernommen. Ihr Name in der Historie
+alle bestanden, geben die Genehmigenden der Stadt den Vorschlag frei, und er wird übernommen. Ihr Name in der Historie
 ist Ihr GitHub-Konto, wie bei jedem Pull Request.
 
 ## 7. Beim nächsten Mal
 
-Denselben Starter erneut ausführen. Die Einrichtung entfällt, der Hub öffnet sich direkt.
-Melden die Prüfungen, dass Ihre Kopie hinter der Stadt zurückliegt (*base stale*), öffnen
-Sie Ihren Fork auf GitHub, wählen *Sync fork → Update branch* und starten erneut.
+Doppelklicken Sie auf das Desktop-Symbol, das der Hub erstellt hat (oder führen Sie denselben Befehl
+erneut aus — es ist sicher zu wiederholen). Die Einrichtung entfällt, der Hub öffnet sich direkt. Der Hub
+bringt Ihre Kopie der Stadtdaten im Hintergrund auf den neuesten Stand und zeigt den Zustand
+auf dem Bildschirm; wird ein Vorschlag als hinter der Stadt (*base stale*) gemeldet,
+senden Sie ihn vom selben Gebäude erneut, nach der Synchronisation.
+
+Wenn eine neuere Version der Werkzeuge veröffentlicht wird, zeigt der Hub ein Banner. *Jetzt
+abrufen* lädt und prüft sie; die neue Version wird beim nächsten Start verwendet. Nichts wird
+ohne Ihren Klick heruntergeladen oder neu gestartet.
 
 ## 8. Übungs-Repositorys
 
 Die Beispielstädte sind Übungsumgebungen. Vorschläge, Kommentare und Begutachtung dort sind
 echte GitHub-Historie, die Daten werden aber regelmäßig auf den Ausgangsstand
-zurückgesetzt. Eine übernommene Übungsänderung muss nicht „richtig“ sein, sie muss den
+zurückgesetzt. Ein übernommener Übungsvorschlag muss nicht „richtig" sein, er muss den
 Regeln folgen. Nutzen Sie sie frei, bevor Sie an einer echten Stadt arbeiten.
 
 ## 9. Fehlerbehebung
 
-- *Port 8760 ist belegt*: Ein anderer Hub läuft. Schließen Sie ihn oder geben Sie einen
-  anderen Port an (Beispiel für macOS): `python3 ~/Documents/citygml-tools/citygml-hub/program/hub.py --port 8761`.
-- *SHA-256 stimmt nicht*: Der Download war beschädigt oder verändert. Starter erneut
-  ausführen; bleibt es dabei, melden Sie es über die Wege in der
+- *Der Browser öffnete einen anderen Port als beim letzten Mal*: ein anderer Hub (eine andere Stadt)
+  lief bereits auf dem üblichen Port, daher kam dieser zum nächsten freien Port. Beide
+  laufen weiter; jede Stadt hat sein Fenster.
+- *SHA-256 stimmt nicht*: Der Download war beschädigt oder verändert. Führen Sie den Befehl erneut
+  aus; bleibt es dabei, melden Sie es über die Wege in der
   [SUPPORT.md](https://github.com/4dcitygml/.github/blob/main/SUPPORT.md) der Organisation.
 - *`python3` oder `git` nicht gefunden (macOS)*: Apples Kommandozeilenwerkzeuge mit
-  `xcode-select --install` installieren und erneut starten.
-- *Die Einrichtung erscheint, obwohl sie abgeschlossen war*: Die Arbeitskopie wurde
-  verschoben oder gelöscht. Erneut importieren oder in `~/.citygml_attr_editor.json` den
-  neuen Ort eintragen.
+  `xcode-select --install` installieren, dann den Befehl erneut ausführen.
+- *Der Einrichtungsbildschirm erscheint, obwohl die Einrichtung fertig war*: die Arbeitskopie wurde
+  verschoben oder gelöscht. Erneut importieren, oder in `~/.citygml_attr_editor.json`
+  (`cities`) den Eintrag dieser Stadt auf den neuen Ort verweisen.
+- *Die Werkzeuge können nicht aktualisiert werden (offline)*: der Hub führt die installierte
+  Version weiter aus; das Banner kehrt zurück, wenn Sie online sind.
 
 ## 10. Wo alles liegt und wie man es entfernt
 
 | Was | Wo |
 |---|---|
-| Die Werkzeuge | `~/Documents/citygml-tools/` |
+| Die Werkzeuge (ein Ordner pro Version) und das Launcher-Skript | `~/Documents/citygml-tools/` |
+| Das Desktop-Symbol | wo Sie es hingezogen haben (verweist nur auf das Launcher-Skript) |
 | Ihre Arbeitskopie der Stadt | `~/Documents/CityGML Data/` |
 | Anmeldetoken und Einstellungen | `~/.citygml_auth.json`, `~/.citygml_attr_editor.json`, `~/.citygml_git_credentials` |
 
@@ -175,7 +182,7 @@ weglassen.
   einen Pull Request. Alle GitHub-Funktionen stehen Ihnen offen: Forks, Branches, der
   Web-Editor, Codespaces, die API, die CLI, Actions in Ihrem Fork.
 - **Die Regeln liegen im Pull Request, nicht im Werkzeug.** Die automatischen Prüfungen
-  wenden auf jeden Vorschlag dieselben dreizehn Prüfpunkte an, egal wie er entstand.
+  wenden auf jeden Vorschlag dieselben vierzehn Prüfpunkte an, egal wie er entstand.
   Lesen Sie vor dem ersten manuellen Vorschlag die [PR-Anleitung](pr-operations.md) (eine
   Änderung = ein Gebäude, Commit-Trailer, Begründungsabschnitt, bytegenaue Bearbeitung),
   die [Regeln zur Quellenerfassung](provenance-rules.md) und den maschinenlesbaren

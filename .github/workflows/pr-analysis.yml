@@ -34,7 +34,7 @@ env:
   # unchanged; set the repository variable CITYGML_TOOLS_REPO only to point at your own
   # audited mirror of tools (owner/name).
   CITYGML_TOOLS_REPO: ${{ vars.CITYGML_TOOLS_REPO || '4dcitygml/tools' }}
-  CITYGML_TOOLS_REF: a43adf6f525b7019e301673ef54525e08b651ade   # tools-v1.1.0; verify city settings and acceptance tests before rollout.
+  CITYGML_TOOLS_REF: 797b0fc9943bec395b3934c1659657fb2281d407   # tools-v1.2.1
 
 jobs:
   analyze:
@@ -79,6 +79,10 @@ jobs:
         id: main
         env:
           PREVIEW_BASE_URL: ${{ vars.PREVIEW_BASE_URL }}
+          # Exchange Contract v3.0.0 A5: a data PR must be classified. Set this repository
+          # variable to "true" only for the city's first release under v3.0.0 (guidance is
+          # posted as a warning instead of blocking); remove it afterwards.
+          CITYGML_CLASSIFICATION_WARN_ONLY: ${{ vars.CITYGML_CLASSIFICATION_WARN_ONLY }}
         run: bash "$TOOLS_DIR/ci/pr_analysis_main.sh"
 
       # --- Topological consistency gate (official engine val3dity, differential, advisory) ---

@@ -13,5 +13,6 @@
   "logo": "logo.png",
   "attribution": "<data source attribution required by the license>",
   "license": "<license id>",
+  "min_hub": "<optional: oldest editing-tools release this city accepts, e.g. hub-v1.2.0; delete the key otherwise>",
   "oauthClientId": "Ov23liAvXHHTqKEk5cdw"
 }
