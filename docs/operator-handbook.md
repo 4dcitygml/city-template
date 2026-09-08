@@ -257,6 +257,56 @@ city merges the PR.
 [ ] Squash-merged after the city's approval
 ```
 
+### 6.7 Changing the CI workflows themselves: two PRs, trusted side first
+
+The city's CI has two sides. The **analysis side** (`pr-analysis.yml`,
+`pr-recheck.yml`) runs from the PR's own branch. The **trusted side**
+(`pr-comment.yml`, `review-report.yml`, everything under `.github/scripts/`)
+runs from `main` regardless of what the PR contains — that is what keeps an
+untrusted PR from changing how its own report is posted and checked. So a PR
+cannot update both sides at once: while it is open, its analysis output is
+handled by the trusted side of `main`.
+
+The routine that follows from this:
+
+1. **Trusted side first.** Merge the change to `pr-comment.yml`,
+   `review-report.yml` and `.github/scripts/` in its own PR. Written so that it
+   accepts both the current and the coming analysis output.
+2. **Analysis side second.** Then merge the change to `pr-analysis.yml`,
+   `pr-recheck.yml` or the `CITYGML_TOOLS_REF` pin that changes what the analyzer
+   produces (new artifact files, new inspection rows).
+
+If both sides go in one PR anyway, the trusted-side run of that PR fails once
+("Unexpected artifact file", "Incomplete inspection result"); `analyze` is not
+affected, the PR can be merged, and the next PR is clean. Do this knowingly or
+not at all — a red check on a maintainer's PR is where residents learn to ignore
+red checks.
+
+Two more things every `.github/` PR needs, or `analyze` fails before it looks at
+the content:
+
+- the maintainer label **`tooling`** (Exchange Contract A9/A11) — apply it right
+  after opening the PR; labeling re-runs the analysis;
+- a PR body in this repository's template: PR type "code / documentation only",
+  the scope line, and a filled **Summary of changes** section (the
+  `<!--sec:reason-->` anchor) — the reason check reads that section.
+
+```text
+[ ] Trusted-side change (pr-comment / review-report / .github/scripts) merged in its own PR before the analysis-side change
+[ ] Trusted side accepts the current and the coming analysis output
+[ ] Label `tooling` applied; PR body in the template structure with the Summary of changes section filled
+[ ] After the analysis-side merge: the next data PR shows a green trusted-side run
+```
+
+This is GitHub's own model, not a local rule: `workflow_run` workflows run only
+from the default branch and `pull_request_target` runs in the base repository's
+default-branch context ([events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)),
+the two-workflow split with artifacts treated as untrusted input is the pattern
+GitHub Security Lab recommends for pull requests from forks
+([preventing pwn requests](https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/)),
+and the [secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
+asks `workflow_run` workflows to treat artifacts from other workflows with caution.
+
 ## 7. Annual updates: the order
 
 You plan the annual update; the bulk parts are submitted by the machine
