@@ -298,6 +298,15 @@ the content:
 [ ] After the analysis-side merge: the next data PR shows a green trusted-side run
 ```
 
+This is GitHub's own model, not a local rule: `workflow_run` workflows run only
+from the default branch and `pull_request_target` runs in the base repository's
+default-branch context ([events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)),
+the two-workflow split with artifacts treated as untrusted input is the pattern
+GitHub Security Lab recommends for pull requests from forks
+([preventing pwn requests](https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/)),
+and the [secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
+asks `workflow_run` workflows to treat artifacts from other workflows with caution.
+
 ## 7. Annual updates: the order
 
 You plan the annual update; the bulk parts are submitted by the machine
