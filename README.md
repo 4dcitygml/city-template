@@ -65,7 +65,7 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
     current arrangement; it may change over time. See [review settings](docs/review-settings.md).
     Remove the unpublished prototype's `operator-explanation` required check and
     workflows when migrating; there is no separate operator confirmation stage.
-    This template pins tools-v1.1.0 for CI; clients are not pinned by cities.
+    This template pins an immutable tools commit for CI (`CITYGML_TOOLS_REF` in the workflows, currently tools-v1.2.1); clients are not pinned by cities.
     City settings and GitHub acceptance tests are still required before rollout. Test report failure/staleness, approval counts and personal filters.
 
 

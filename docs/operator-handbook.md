@@ -9,7 +9,7 @@
   [Approver's guide](approver-guide.md) · Bulk submissions:
   [provenance, verification, and merge policy](https://github.com/4dcitygml/tools/blob/main/docs/bulk-submission-provenance.md)
 
-日本語版: [docs/ja/operator-handbook.md](ja/operator-handbook.md) · Deutsch: [docs/de/operator-handbook.md](de/operator-handbook.md)
+This handbook is maintained in English; the resident-facing guides have Japanese and German versions under `docs/ja/` and `docs/de/`.
 
 This handbook covers preparing proposals, handling questions, merging approved
 changes, releases and tool maintenance. These operational responsibilities do

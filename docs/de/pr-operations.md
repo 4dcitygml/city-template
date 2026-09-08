@@ -13,8 +13,8 @@ Dieses Dokument ist die **Vereinbarung**, die jede Pull Request nach der Veröff
 | Sie sind | Lesen Sie |
 |---|---|
 | Ein Einwohner oder Mitarbeitender, der einen Vorschlag mit Bearbeitungswerkzeugen einreicht | [Erste Schritte](getting-started.md) — die Werkzeuge erfüllen diese Vereinbarung für Sie |
-| Ein Mitglied des `maintainers`-Teams der Stadt (der Freigebende) | [Genehmiger-Anleitung](approver-guide.md) — eine Seite |
-| Ein Mitglied des `operators`-Teams (ein Auftragnehmer, oder 4dcitygml als Betreiber) | [Operator-Handbuch](operator-handbook.md) |
+| Ein Mitglied des `maintainers`-Teams der Stadt (der Freigebende) | [Genehmiger-Anleitung](../approver-guide.md) — eine Seite |
+| Ein Mitglied des `operators`-Teams (ein Auftragnehmer, oder 4dcitygml als Betreiber) | [Operator-Handbuch](../operator-handbook.md) |
 | Das Maschinenkonto, das toolgesteuerte Änderungen einreicht | [Bulk submissions: provenance, verification, and merge policy](https://github.com/4dcitygml/tools/blob/main/docs/bulk-submission-provenance.md) |
 
 ## 1. Grundsätze
@@ -57,7 +57,7 @@ Review-Beteiligung ist durch die Stadt konfigurierbar. Ein Reviewer kann ein Sta
 
 Die Stadt kann die erforderliche Anzahl jederzeit ändern, wenn sich die Anordnung ändert. Ein autorisierter Administrator zeichnet das Datum, die Vor-/Nach-Anzahl und den Grund auf. Ein Konto trägt höchstens eine Genehmigung bei. Planen Sie für die Personen, die tatsächlich jeden PR genehmigen können, ausgenommen seinen Autor; die Gesamtzahl der Konten mit Schreibzugriff ist nicht unbedingt die vorgesehene Review-Gruppe. Mitgliedschaft und optional Code-Owner-Anforderungen regeln die Berechtigung separat von der numerischen Anzahl.
 
-Der Hub liest aktive GitHub-Regeln und bietet einen persönlichen verbleibenden-Anzahl-Filter. Siehe [Review-Einstellungen](review-settings.md). Einstellungen werden pro Konto und Repository im Browser gespeichert; sie erzwingen keine Stellenbezeichnung oder Überprüfungsreihenfolge.
+Der Hub liest aktive GitHub-Regeln und bietet einen persönlichen verbleibenden-Anzahl-Filter. Siehe [Review-Einstellungen](../review-settings.md). Einstellungen werden pro Konto und Repository im Browser gespeichert; sie erzwingen keine Stellenbezeichnung oder Überprüfungsreihenfolge.
 
 ## 3. PR-Typen
 

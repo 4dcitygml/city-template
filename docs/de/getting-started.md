@@ -165,7 +165,7 @@ Regeln folgen. Nutzen Sie sie frei, bevor Sie an einer echten Stadt arbeiten.
 | Die Werkzeuge (ein Ordner pro Version) und das Launcher-Skript | `~/Documents/citygml-tools/` |
 | Das Desktop-Symbol | wo Sie es hingezogen haben (verweist nur auf das Launcher-Skript) |
 | Ihre Arbeitskopie der Stadt | `~/Documents/CityGML Data/` |
-| Anmeldetoken und Einstellungen | `~/.citygml_auth.json`, `~/.citygml_attr_editor.json`, `~/.citygml_git_credentials` |
+| Konten und Einstellungen | `~/.citygml/auth/` (eine Datei je verbundenem GitHub-Konto), `~/.citygml_attr_editor.json` |
 
 Um alles zu entfernen, löschen Sie diese Einträge und widerrufen *4dcitygml hub* unter
 *Settings → Applications → Authorized OAuth Apps* auf GitHub. Ihr Fork und gesendete
