@@ -13,8 +13,8 @@ English (canonical): [docs/pr-operations.md](../pr-operations.md) · Deutsch: [d
 | 対象 | 参照先 |
 |---|---|
 | 編集ツールで提案を送る住民・職員 | [はじめかた](getting-started.md) — ツールがこの契約を満たします |
-| 市町村の `maintainers` team（最終承認者） | [承認者の手引き](approver-guide.md) — 1ページ |
-| `operators` team の運用者（委託先、または4dcitygml） | [運用者ハンドブック](operator-handbook.md) |
+| 市町村の `maintainers` team（最終承認者） | [承認者の手引き](../approver-guide.md) — 1ページ |
+| `operators` team の運用者（委託先、または4dcitygml） | [運用者ハンドブック](../operator-handbook.md) |
 | ツール生成済み変更を投稿する機械アカウント | [一括投稿: 出典、検証、マージ方針](https://github.com/4dcitygml/tools/blob/main/docs/bulk-submission-provenance.md) |
 
 ## 1. 原則
@@ -57,7 +57,7 @@ review参加は市町村が設定可能。reviewer は市町村職員、委託�
 
 市町村は必須承認数をいつでも変更可。権限ある管理者が日時、変更前後の数、理由を記録。1アカウント = 最大1承認。作成者以外で実際に承認できる人数を計画。write権限総数は想定 review 対象者と異なる場合あり。メンバーシップと任意のCode Owner要件は数値から独立して適格性を定める。
 
-hubは現行GitHub設定を読み込み個人別の残り承認数フィルタを提供。[review設定](review-settings.md) を参照。設定はブラウザにアカウント・リポ単位で保存。職位判定やreview順序は強制しない。
+hubは現行GitHub設定を読み込み個人別の残り承認数フィルタを提供。[review設定](../review-settings.md) を参照。設定はブラウザにアカウント・リポ単位で保存。職位判定やreview順序は強制しない。
 
 ## 3. PR種別
 
