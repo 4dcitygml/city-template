@@ -32,6 +32,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  # Same rule as pr-analysis.yml: CITYGML_TOOLS_REPO names your own audited mirror,
+  # CITYGML_TOOLS_TOKEN (secret, read-only Contents) is needed only when it is private.
   CITYGML_TOOLS_REPO: ${{ vars.CITYGML_TOOLS_REPO || '4dcitygml/tools' }}
   CITYGML_TOOLS_REF: 797b0fc9943bec395b3934c1659657fb2281d407   # tools-v1.2.1
 
@@ -57,6 +59,7 @@ jobs:
           repository: ${{ env.CITYGML_TOOLS_REPO }}
           ref: ${{ env.CITYGML_TOOLS_REF }}
           path: .citygml-ci
+          token: ${{ secrets.CITYGML_TOOLS_TOKEN || github.token }}
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         if: steps.city.outputs.configured == 'true'
