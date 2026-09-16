@@ -31,7 +31,9 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
    `4dcitygml/tools` regardless of which account or organization hosts your
    repository; only if you maintain your own audited mirror of `tools`, set
    the repository variable `CITYGML_TOOLS_REPO` (Settings → Secrets and
-   variables → Actions → Variables) to `owner/name`.
+   variables → Actions → Variables) to `owner/name`; if that mirror is private,
+   also store a fine-grained token with read-only Contents access to it as the
+   repository secret `CITYGML_TOOLS_TOKEN`.
 8. Update `.github/CODEOWNERS`: replace the owner handle with your
    maintainers team, e.g. `* @<org>/maintainers` (an organization cannot be
    a code owner, but a team can; the team must be visible and have write
