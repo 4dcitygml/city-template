@@ -10,7 +10,7 @@ Status: v2 (v1 "Foto-Beitragspolitik" auf alle Datenbeiträge erweitert)
 
 Diese Richtlinie regelt die Rechte bei **Beiträgen zu den Datendateien dieses Repositorys (CityGML und Textur-Bilder in den Daten-Verzeichnissen)**. Durch die Einreichung eines Pull Requests, der Daten ändert, stimmt der Einreicher dieser Richtlinie zu (die Bearbeitungs-Werkzeuge zeichnen diese Zustimmung im Pull-Request-Body auf).
 
-日本語版: [docs/ja/data-contribution-policy.md](../ja/data-contribution-policy.md)
+Diese deutsche Fassung ist eine Übersetzung zum Verständnis. Bei Abweichungen gilt die englische Fassung ([docs/data-contribution-policy.md](../data-contribution-policy.md)).
 
 ## 1. Alle Datenbeiträge sind CC0 1.0
 

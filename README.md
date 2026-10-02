@@ -9,7 +9,7 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
 1. Create your repository with GitHub **Use this template** (not a fork).
 2. Copy `4dcitygml.json.example` to `4dcitygml.json` and fill every `<...>`
    placeholder (`id`, `name`, `repo`, `country`, `lang`, `crs`,
-   `building_id`, `data_dirs`, `attribution`, `license`). Leave
+   `building_id`, `data_dirs`, `attribution`, `license`, `min_hub`). Leave
    `oauthClientId` empty unless you operate your own OAuth App.
 3. Copy `theme.json.example` to `theme.json` and adjust the tokens.
 4. Put your CityGML data in the folder named in `data_dirs`.
@@ -21,9 +21,12 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
    repository holds data, documents and settings only, and CI rejects code
    (Exchange Contract A11). Residents install the editing tools with the one-line
    command in the *Get started* bullet below; the tools' version comes from
-   `4dcitygml/tools` releases. Optionally state the oldest client you accept
-   with `min_hub` in `4dcitygml.json` (advisory; the hub shows it as the reason
-   for an update).
+   `4dcitygml/tools` releases. `min_hub` in `4dcitygml.json` names the oldest
+   editing-tools release the city accepts (hub-v1.5.0 or later): from
+   hub-v1.5.0 on, an older hub can still view the city but cannot send
+   proposals, and it offers the update. The folder `.github/practice/` serves the
+   `sample-*-station` practice repositories only; leave it as it is (nothing in
+   it runs).
 7. In `.github/workflows/`, keep `CITYGML_TOOLS_REF` pinned to an immutable
    commit SHA from a published `tools-v` release of `4dcitygml/tools`.
    Update it deliberately per release —
@@ -39,12 +42,11 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
    a code owner, but a team can; the team must be visible and have write
    access). Keeping the file team-based means people join and leave the
    review role by changing team membership — the file itself never changes.
-   The `sample-*-station` repositories additionally exempt their enumerated
-   practice data files from code-owner review — do not copy that pattern
-   into a production city repository.
 9. Replace `<City Name>` in this README, delete the template comment at the
    top of it, and add `logo.png` (optional).
-10. On GitHub, enable branch protection / rulesets: required checks
+10. On GitHub, protect the default branch with a ruleset that allows changes only
+    through pull requests and has an empty bypass list, administrators included:
+    required checks
     `analyze` and `ci-report`, the city's required approval count with review
     from Code Owners, dismiss stale
     approvals on push, approval of the most recent reviewable push,
@@ -67,8 +69,8 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
     current arrangement; it may change over time. See [review settings](docs/review-settings.md).
     Remove the unpublished prototype's `operator-explanation` required check and
     workflows when migrating; there is no separate operator confirmation stage.
-    This template pins an immutable tools commit for CI (`CITYGML_TOOLS_REF` in the workflows, currently tools-v1.2.1); clients are not pinned by cities.
-    City settings and GitHub acceptance tests are still required before rollout. Test report failure/staleness, approval counts and personal filters.
+    This template pins an immutable tools commit for CI (`CITYGML_TOOLS_REF` in the workflows, the tag's name beside it); clients are not pinned by cities.
+    City settings and GitHub acceptance tests are still required before rollout. Test report failure and staleness, and the required approval count on GitHub.
 
 
 - **Get started (residents / contributors):** open a terminal and paste one line.
@@ -89,7 +91,7 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
   and run the workflow "Building history index (Pages)"; it publishes the
   repository content (preview URLs stay the same as with the "main / root"
   source) plus a static page under `/history/` where anyone can look up a
-  `uro:buildingID` and see every recorded change to that building (proposals,
+  building ID and see every recorded change to that building (proposals,
   identity changes, official editions). Re-run it after merges you want
   reflected.
 - **Edition:** `edition` in `4dcitygml.json` names the i-UR edition the data is
@@ -102,7 +104,7 @@ Building data (CityGML) for <City Name>, collaboratively maintained via pull req
   every tool. SVG is not accepted — an SVG opened directly can execute scripts, which
   would break the "no XSS by construction" design shared with themes.
 
-For city staff: [処理フローの解説（日本語）](docs/ja/processing-flow.md)
+For city staff: [the processing flow](docs/processing-flow.md)
 covers setup, proposals, automated checks, approval, corrections, and releases.
 
 ## Viewing the data in a standalone viewer
