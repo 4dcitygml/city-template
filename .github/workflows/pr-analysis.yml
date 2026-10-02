@@ -27,6 +27,7 @@ concurrency:
 
 permissions:
   contents: read
+  pull-requests: read   # the inspection reads the PR as GitHub holds it, not only the event
 
 env:
   # Shared CI logic lives in the 4dcitygml/tools repository. City repositories hosted
@@ -36,7 +37,7 @@ env:
   # fine-grained token with read-only Contents access to it as the repository secret
   # CITYGML_TOOLS_TOKEN; without the secret the job's own token is used.
   CITYGML_TOOLS_REPO: ${{ vars.CITYGML_TOOLS_REPO || '4dcitygml/tools' }}
-  CITYGML_TOOLS_REF: 797b0fc9943bec395b3934c1659657fb2281d407   # tools-v1.2.1
+  CITYGML_TOOLS_REF: a48d4658ec177c3ccfab6ffc24490fdb9dd3220f   # tools-v1.5.0
 
 jobs:
   analyze:
@@ -45,6 +46,13 @@ jobs:
     env:
       TOOLS_DIR: ${{ github.workspace }}/.citygml-ci
     steps:
+      # CI switch (city-template docs/operator-handbook.md 6.8): `analyze` is a required check, and a skipped
+      # job counts as passed, so with CITYGML_CI set to `off` the job fails here instead.
+      - name: CI switch
+        if: vars.CITYGML_CI == 'off'
+        run: |
+          echo "::error::CITYGML_CI is off in this repository; the analysis did not run."
+          exit 1
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           # Pin the exact head commit from the event, not the branch name: checking
@@ -143,9 +151,12 @@ jobs:
       - name: Build automatic inspection summary and resubmission request
         if: always()
         env:
-          # STRICT_GATE=1 (practice repos, via repo variable): "❌ Needs attention"
-          # turns this job red so branch protection can use it as a merge gate.
+          # STRICT_GATE=1 (repository variable CITYGML_STRICT_GATE, set by every city,
+          # README step 11): a blocking finding or a system error turns this job red,
+          # so the ruleset's required `analyze` check is the merge gate.
           STRICT_GATE: ${{ vars.CITYGML_STRICT_GATE }}
+          # Reads the PR as GitHub holds it now (pull-requests: read), for the report's context.
+          GITHUB_TOKEN: ${{ github.token }}
         run: bash "$TOOLS_DIR/ci/inspection_summary.sh"
 
       - name: Upload comment bodies (consumed by pr-comment.yml)

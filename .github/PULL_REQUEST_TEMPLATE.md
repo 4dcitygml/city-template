@@ -26,7 +26,7 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 - [ ] documentation / configuration only (code is not accepted here — propose tools in `4dcitygml/tools`)
 
 ## Target buildings / scope
-<!-- The stable uro:buildingID of each affected building. Bulk submissions (with a provenance manifest): one ID per commit. Administrative PRs: specify the mesh or manifest. -->
+<!-- The stable building ID (as `building_id` in 4dcitygml.json names it) of each affected building. Bulk submissions (with a provenance manifest): one ID per commit. Administrative PRs: specify the mesh or manifest. -->
 -
 
 ## Summary of changes <!--sec:reason-->
@@ -67,7 +67,7 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 
 ## Checklist
 - [ ] Created from the latest main, with no conflict against earlier PRs on the same mesh
-- [ ] For normal updates, each commit is **1 commit = 1 `uro:buildingID`**
+- [ ] For normal updates, each commit is **1 commit = 1 building ID**
 - [ ] For normal updates, fixes to the same buildingID are not split across multiple commits in the PR
 - [ ] The `Building:` (etc.) trailer of each building commit matches the actually changed buildingID
 - [ ] For bulk submissions (several building commits with a provenance manifest), if any single building fails a blocking CI check, the whole PR is fixed

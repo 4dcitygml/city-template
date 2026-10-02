@@ -7,9 +7,6 @@ name: Verify CI review report
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft, edited, labeled, unlabeled]
-  workflow_run:
-    workflows: ["PR Comment (CityGML)", "PR Analysis (CityGML)"]
-    types: [completed]
   push:
     branches: [main]
   workflow_dispatch:
@@ -19,10 +16,21 @@ permissions:
   checks: write
   actions: read
 concurrency:
-  group: ci-review-report
+  # One queue per PR (a PR event); push and manual runs, which evaluate every open PR, share
+  # one queue. A single repository-wide queue would let a third event cancel another PR's
+  # pending evaluation. After a report, the poster verifies its PR itself.
+  group: ci-review-report-${{ github.event.pull_request.number || 'all-open-prs' }}
   cancel-in-progress: false
 jobs:
   verify:
+    # CI switch: the repository variable CITYGML_CI set to `off` skips automatic runs
+    # (city-template docs/operator-handbook.md 6.8); a manual dispatch still runs.
+    # The `city-review` label is not part of the report context: adding or removing it
+    # leaves the report as valid as it was, so it starts no evaluation.
+    if: >-
+      (vars.CITYGML_CI != 'off' || github.event_name == 'workflow_dispatch') &&
+      !((github.event.action == 'labeled' || github.event.action == 'unlabeled') &&
+        github.event.label.name == 'city-review')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0

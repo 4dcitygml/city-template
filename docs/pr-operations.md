@@ -8,8 +8,6 @@
   only; the seat-specific procedures moved to their own documents.
 - Applies to: published city data repositories
 
-日本語版: [docs/ja/pr-operations.md](ja/pr-operations.md) · Deutsch: [docs/de/pr-operations.md](de/pr-operations.md)
-
 This document is the **contract** every pull request follows after
 publication: the principles, the seats, the PR types, and the conditions
 under which nothing merges. How each seat does its work is in its own
@@ -24,7 +22,7 @@ document:
 
 ## 1. Principles
 
-1. **1 commit = 1 `uro:buildingID`** is the minimum unit of a normal update.
+1. **1 commit = 1 building ID** is the minimum unit of a normal update (the ID that `building_id` in `4dcitygml.json` names, e.g. `uro:buildingID`).
 2. A normal correction PR covers **one building**. Reproducible bulk
    submissions have their own manifest-backed route (principle 7). A rebuild,
    split or merge uses the dedicated **one lifecycle event** route (principle 4).
@@ -59,8 +57,9 @@ Language of PR text: the editing tools generate the PR title and body in the
 `Building:` trailers, and branch prefixes stay English/literal (the history and
 machine contracts are language-independent). Because city-data PRs merge with a
 merge commit (rule 5), the PR title never becomes a history title line on main.
-(The practice repos deviate: their auto-merge squashes, so the repo-language PR
-title does appear in the practice history, which is periodically reset.)
+(The practice repos deviate: their pull requests are merged by squash, so the
+repo-language PR title does appear in the practice history. A maintainer returns practice data to
+its baseline with a manual reset pull request; the history stays.)
 
 ```text
 Issue / official source / resident's proposal
@@ -95,9 +94,8 @@ approve each PR, excluding its author; the total number of accounts with write
 access is not necessarily the intended review group. Membership and optional
 Code Owner requirements govern eligibility separately from the numeric count.
 
-The hub reads active GitHub rules and offers a personal remaining-count filter.
-See [review settings](review-settings.md). Settings are saved per account and
-repository in the browser; they do not enforce a job title or a review order.
+GitHub enforces the required approvals; the hub shows each reviewer whether they
+approved, not how many approvals remain. See [review settings](review-settings.md).
 
 ## 3. PR types
 

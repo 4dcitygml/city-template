@@ -9,7 +9,7 @@
   [Approver's guide](approver-guide.md) · Bulk submissions:
   [provenance, verification, and merge policy](https://github.com/4dcitygml/tools/blob/main/docs/bulk-submission-provenance.md)
 
-This handbook is maintained in English; the resident-facing guides have Japanese and German versions under `docs/ja/` and `docs/de/`.
+The documents of this repository are maintained in English only; residents meet their own language in the editing tools and in the texts CI posts. The one exception is the data contribution policy, the consent text the pull request templates link: it has Japanese and German translations, and the English text governs.
 
 This handbook covers preparing proposals, handling questions, merging approved
 changes, releases and tool maintenance. These operational responsibilities do
@@ -27,7 +27,7 @@ section when you make a PR without them.
 
 ```text
 [ ] Decided the starting point: an issue, an official source, a resident's proposal, or scheduled maintenance
-[ ] Identified the target city, uro:buildingID, mesh, and change type
+[ ] Identified the target city, building ID, mesh, and change type
 [ ] The evidence can be published, with no license / personal-information / privacy problems
 [ ] No earlier open PR changes the same mesh GML
 [ ] The boundary between this PR and other PRs is decided
@@ -45,7 +45,7 @@ are touched.
 [ ] The PR history is linear, with no merge commits inside the branch
 [ ] Each normal-update commit changes exactly one buildingID
 [ ] The same buildingID is not split across commits within the PR
-[ ] Building commits are ordered by ascending uro:buildingID
+[ ] Building commits are ordered by ascending building ID
 [ ] Building:, Building-Added:, Building-Deleted: trailers match the actual change
 [ ] Formatting-only diffs outside the target are removed with the minimal-diff version
 ```
@@ -119,16 +119,22 @@ There is no separate human transcription, operator confirmation button, or
 operator-explanation required check.
 
 The machine report must match the current PR and CI run. Its generation or
-delivery failure cannot be replaced by a handwritten result. `analyze` and
+delivery failure cannot be replaced by a handwritten result. `ci-report` is
+judged in one place (`check_review_report.verify`): the poster calls it right after
+it published a report, and `review-report.yml` on every PR update, push to `main` and
+manual run; its summary names the reason: `current` (the report is valid and
+passes), `fix` or `system` (a current report that asks the proposer for a fix, or
+an incomplete run), `report-pending` (no report for the latest analysis yet),
+`report-stale` (the PR changed after the report), `report-unavailable` (no readable
+report), `workflow-change` (a `.github/` change without the `tooling` label),
+`duplicate-head`, `head-changed`. `analyze` and
 `ci-report` remain required checks; human approval requirements belong to GitHub.
 A CI rerun does not itself dismiss human approvals. GitHub's configured stale
 review, Code Owner and last-push rules decide whether approvals remain effective.
 
-The city can change its required approval count over time. Use the hub's personal
-remaining-count filter to concentrate on your part of the process. For example,
-with four required reviewers, a city reviewer may select remaining two and their
-supervisor remaining one. These are views, not enforced roles or sequencing.
-[Review settings and count limitations](review-settings.md) describe the details.
+The city can change its required approval count over time; GitHub enforces it.
+The hub shows each reviewer whether they approved, not how many approvals remain.
+[Review settings](review-settings.md) describe the details.
 
 
 ## 4. Merge
@@ -166,7 +172,7 @@ specified in the bulk-submission document.
 
 ```text
 [ ] There is a data-issue or publishable evidence
-[ ] The PR has exactly one building commit with one Building: <uro:buildingID>
+[ ] The PR has exactly one building commit with one Building: <building ID>
 [ ] Texture replacement was done by adding new images + updating imageURI
 [ ] After geometry changes, derived attributes (height, area, …) were checked for consistency
 ```
@@ -259,21 +265,21 @@ city merges the PR.
 
 ### 6.7 Changing the CI workflows themselves: two PRs, trusted side first
 
-The city's CI has two sides. The **analysis side** (`pr-analysis.yml`,
-`pr-recheck.yml`) runs from the PR's own branch. The **trusted side**
-(`pr-comment.yml`, `review-report.yml`, everything under `.github/scripts/`)
-runs from `main` regardless of what the PR contains — that is what keeps an
+The city's CI has two sides. The **analysis side** (`pr-analysis.yml`) runs
+from the PR's own branch. The **trusted side** (`pr-comment.yml`,
+`review-report.yml`, `pr-base-freshness.yml`, `pr-recheck.yml`, everything under
+`.github/scripts/`) runs from `main` regardless of what the PR contains — that is what keeps an
 untrusted PR from changing how its own report is posted and checked. So a PR
 cannot update both sides at once: while it is open, its analysis output is
 handled by the trusted side of `main`.
 
 The routine that follows from this:
 
-1. **Trusted side first.** Merge the change to `pr-comment.yml`,
-   `review-report.yml` and `.github/scripts/` in its own PR. Written so that it
+1. **Trusted side first.** Merge the change to the trusted workflows and
+   `.github/scripts/` in its own PR. Written so that it
    accepts both the current and the coming analysis output.
-2. **Analysis side second.** Then merge the change to `pr-analysis.yml`,
-   `pr-recheck.yml` or the `CITYGML_TOOLS_REF` pin that changes what the analyzer
+2. **Analysis side second.** Then merge the change to `pr-analysis.yml` or the
+   `CITYGML_TOOLS_REF` pin that changes what the analyzer
    produces (new artifact files, new inspection rows).
 
 If both sides go in one PR anyway, the trusted-side run of that PR fails once
@@ -286,13 +292,16 @@ Two more things every `.github/` PR needs, or `analyze` fails before it looks at
 the content:
 
 - the maintainer label **`tooling`** (Exchange Contract A9/A11) — apply it right
-  after opening the PR; labeling re-runs the analysis;
-- a PR body in this repository's template: PR type "code / documentation only",
+  after opening the PR; labeling re-runs the analysis. The label is also what
+  lets the report count: a PR that changes anything under `.github/` runs its
+  own analysis workflow, so without the label `ci-report` fails with the reason
+  `workflow-change`, however green its analysis looks;
+- a PR body in this repository's template: PR type "documentation / configuration only",
   the scope line, and a filled **Summary of changes** section (the
   `<!--sec:reason-->` anchor) — the reason check reads that section.
 
 ```text
-[ ] Trusted-side change (pr-comment / review-report / .github/scripts) merged in its own PR before the analysis-side change
+[ ] Trusted-side change (pr-comment / review-report / pr-base-freshness / pr-recheck / .github/scripts) merged in its own PR before the analysis-side change
 [ ] Trusted side accepts the current and the coming analysis output
 [ ] Label `tooling` applied; PR body in the template structure with the Summary of changes section filled
 [ ] After the analysis-side merge: the next data PR shows a green trusted-side run
@@ -307,7 +316,21 @@ GitHub Security Lab recommends for pull requests from forks
 and the [secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
 asks `workflow_run` workflows to treat artifacts from other workflows with caution.
 
-## 7. Annual updates: the order
+### 6.8 CI switch
+
+A copy of this repository used for rehearsing CI changes can stop its automatic
+workflow runs with one repository variable, `CITYGML_CI`:
+
+| Value | Effect |
+|---|---|
+| unset (every city repository) | every workflow runs as written |
+| `off` | automatic runs are skipped; `analyze` fails at its first step instead |
+| any value, manual dispatch | a workflow that offers `workflow_dispatch` runs: `pr-comment.yml` (publish a given analysis run again), `review-report.yml` and `pr-base-freshness.yml` (check every open PR) |
+
+`analyze` fails rather than skips because it is a required check and GitHub counts
+a skipped job as passed; with the switch off no pull request can pass the gate
+unanalyzed. Never set the variable on a city repository that takes contributions.
+
 
 You plan the annual update; the bulk parts are submitted by the machine
 account and specified in the bulk-submission document.
