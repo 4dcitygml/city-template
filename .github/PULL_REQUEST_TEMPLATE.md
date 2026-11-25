@@ -44,29 +44,14 @@ https://github.com/4dcitygml/tools/blob/main/docs/exchange-contract.md
 
 ## Image rights
 <!-- Required whenever the PR adds or replaces photos / texture images; otherwise leave unchecked. See ../docs/data-contribution-policy.md (§1-§2). -->
-- [ ] Every added image was **taken by myself** (no photos by others, no images from the web or social media)
-- [ ] Every photo was taken from a lawful location such as a public road
+- [ ] Every added image was **taken by myself** (no photos by others, no images from the web or social media); in a practice repository only, it may instead come from its `docs/practice-photos/` folder
+- [ ] Every photo I took was taken from a lawful location such as a public road
 - [ ] No recognizable faces, license plates, nameplates, room interiors, or similar privacy-sensitive details remain (masked / blurred where needed)
 - [ ] No third-party work (sign, poster, display) is the main subject of any image
 - [ ] I provide the added data and images under **CC0 1.0** as set out in the [data contribution policy](../docs/data-contribution-policy.md), and for photos I also agree not to exercise moral rights (cropping, perspective correction, compositing, and recompression are part of texturing)
 
-## Source / manifest (source-update / schema / layout etc.)
-<!-- For everyday corrections, supporting evidence alone is fine. Required for the administrative PR types below. -->
-- Source-From:
-- Source-To:
-- Scope-Mesh:
-- Attribute-Family:
-- Allowed-Paths:
-- History-Manifest:
-- Provenance-Manifest:
-- Manifest-SHA256:
-- Plan-Issue:
-- Building-Count:
-- First-Building-ID:
-- Last-Building-ID:
-
 ## Checklist
-- [ ] Created from the latest main, with no conflict against earlier PRs on the same mesh
+- [ ] Created from the latest main (or brought up to date with the Update branch button), with no conflict against earlier PRs on the same mesh
 - [ ] For normal updates, each commit is **1 commit = 1 building ID**
 - [ ] For normal updates, fixes to the same buildingID are not split across multiple commits in the PR
 - [ ] The `Building:` (etc.) trailer of each building commit matches the actually changed buildingID
