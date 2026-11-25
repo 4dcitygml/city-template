@@ -1,0 +1,17 @@
+# Copyright (c) 2026 4dcitygml
+# SPDX-License-Identifier: Apache-2.0
+#
+# GitHub's own update service for the actions the workflows pin by commit SHA (uses: x@<sha> # vN).
+# Action pins only: the city's CI tools version is the declaration's `tools` key (Exchange
+# Contract A11), not a dependency. A Dependabot PR changes .github/, so it needs the maintainer's
+# `tooling` label like any workflow change. Template only: a new city deletes this file (README
+# step 1), and the practice cities do not carry it (.github/practice/allowed-differences.json).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
